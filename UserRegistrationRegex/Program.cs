@@ -48,6 +48,12 @@ namespace UserRegistrationRegex
                         mobilenumpattern.Checkmobilenum(mobilenum);
                         break;
                     case 5:
+                        Console.WriteLine("Enter Passward :");
+                        string passward = Console.ReadLine();
+                        ValidationRegex passwardruleone = new ValidationRegex();
+                        passwardruleone.Checkpassward(passward);
+                        break;
+                    case 6:
                         flag = false;
                         break;
                     default:
