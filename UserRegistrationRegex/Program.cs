@@ -42,6 +42,12 @@ namespace UserRegistrationRegex
                         emailpattern.Checkemail(email);
                         break;
                     case 4:
+                        Console.WriteLine("Enter Mobile No. :");
+                        string mobilenum = Console.ReadLine();
+                        ValidationRegex mobilenumpattern = new ValidationRegex();
+                        mobilenumpattern.Checkmobilenum(mobilenum);
+                        break;
+                    case 5:
                         flag = false;
                         break;
                     default:
