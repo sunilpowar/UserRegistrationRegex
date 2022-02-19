@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using UserRegistrationexRefAnn;
 
 namespace UserRegistrationRegex
 {
@@ -64,8 +65,19 @@ namespace UserRegistrationRegex
                         break;
                 }
 
+
                 Console.ReadKey();
             }
+
+
+        }
+        //Method to perform LambdaValidation
+        public static void LambdaValidate()
+        {
+            LambdaValidation.ValidateFirstName();
+            LambdaValidation.ValidateLastName();
+            LambdaValidation.ValidateMobileNumber();
+            LambdaValidation.ValidateEmail();
         }
 
     }
