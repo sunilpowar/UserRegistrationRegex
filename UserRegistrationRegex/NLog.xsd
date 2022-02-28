@@ -1,12 +1,100 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UserRegistrationRegex
-{
-    class NLog
-    {
-    }
-}
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="NLog" targetNamespace="http://www.nlog-project.org/schemas/NLog.xsd" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.nlog-project.org/schemas/NLog.xsd">
+  <xs:element name="nlog" type="NLogConfiguration" />
+  <xs:complexType name="NLogConfiguration">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="extensions" type="NLogExtensions" />
+      <xs:element name="include" type="NLogInclude" />
+      <xs:element name="variable" type="NLogVariable" />
+      <xs:element name="targets" type="NLogTargets" />
+      <xs:element name="rules" type="NLogRules" />
+      <xs:element name="time" type="TimeSource" />
+    </xs:choice>
+    <xs:attribute name="autoReload" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Watch config file for changes and reload automatically.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="internalLogToConsole" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Print internal NLog messages to the console. Default value is: false</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="internalLogToConsoleError" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Print internal NLog messages to the console error output. Default value is: false</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="internalLogFile" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Write internal NLog messages to the specified file.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="internalLogLevel" type="NLogLevel">
+      <xs:annotation>
+        <xs:documentation>Log level threshold for internal log messages. Default value is: Info.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="globalThreshold" type="NLogLevel">
+      <xs:annotation>
+        <xs:documentation>Global log level threshold for application log messages. Messages below this level won't be logged.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="throwExceptions" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Throw an exception when there is an internal error. Default value is: false. Not recommend to set to true in production!</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="throwConfigExceptions" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Throw an exception when there is a configuration error. If not set, determined by throwExceptions.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="keepVariablesOnReload" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Gets or sets a value indicating whether Variables should be kept on configuration reload. Default value is: false.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="internalLogToTrace" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Write internal NLog messages to the System.Diagnostics.Trace. Default value is: false.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="internalLogIncludeTimestamp" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Write timestamps for internal NLog messages. Default value is: true.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="useInvariantCulture" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Use InvariantCulture as default culture instead of CurrentCulture.  Default value is: false.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="parseMessageTemplates" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Perform message template parsing and formatting of LogEvent messages (true = Always, false = Never, empty = Auto Detect). Default value is: empty.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="NLogTargets">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="default-wrapper" type="WrapperTargetBase" />
+      <xs:element name="default-target-parameters" type="Target" />
+      <xs:element name="target" type="Target" />
+      <xs:element name="wrapper-target" type="WrapperTargetBase" />
+      <xs:element name="compound-target" type="CompoundTargetBase" />
+    </xs:choice>
+    <xs:attribute name="async" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Make all targets within this section asynchronous (creates additional threads but the calling thread isn't blocked by any target writes).</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="NLogRules">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="logger" type="NLogLoggerRule" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NLogExtensions">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="add" type="NLogExtensionsAdd" />
